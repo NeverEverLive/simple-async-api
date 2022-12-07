@@ -6,4 +6,4 @@ Run script by typing
 All downloaded files will be in ```files/``` folder
 
 
-This service send request [here](https://github.com/NeverEverLive/redis-statistics) for analize most populare resolution
+This service send request [here](https://github.com/NeverEverLive/redis-statistics) for analize most popular resolution
