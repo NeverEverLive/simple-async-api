@@ -11,4 +11,4 @@ This service send request [here](https://github.com/NeverEverLive/redis-statisti
 
 # Start postgres
 
-```docker-compose up``` in root derictory
+```docker-compose up``` in root directory
