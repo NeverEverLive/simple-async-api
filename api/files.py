@@ -2,12 +2,18 @@ import asyncio
 import json
 import time
 from pathlib import Path
+import os
+import logging
 
 import aiohttp
 import aiofiles
 from aiohttp import web
+from dotenv import load_dotenv
 
 from validators import Validator
+
+
+load_dotenv()
 
 
 async def fetch_content(url: str, session: aiohttp.ClientSession):
@@ -60,9 +66,13 @@ async def download_files(request: web.Request):
         )
 
     start_time = time.time()
-    
+    analitics_service_url = os.getenv("ANALITICS_SERVICE_URL")
+    key = " x ".join(url.split("/")[-2:])
     async with aiohttp.ClientSession() as session:
+        request = session.post(analitics_service_url, json={"resolution": key})
+        logging.warning(request)
         tasks = [asyncio.create_task(fetch_content(url, session)) for _ in range(number_of_task)]
+        tasks.append(asyncio.create_task(request))
         try:
             await asyncio.gather(*tasks, return_exceptions=True)
         except Exception as error:
